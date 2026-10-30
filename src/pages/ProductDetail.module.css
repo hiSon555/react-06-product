@@ -1,0 +1,74 @@
+.container {
+    padding: 50px;
+    margin: 0 auto;
+    height: 100vh;
+    width: 100%;
+    max-width: 1000px;
+    display: flex;
+    flex-direction: column;
+    background-color: #f8f6f6;
+    border-radius: 10px;
+}
+
+.backButton {
+    border-radius: 8px;
+    border: none;
+    width: 150px
+}
+
+
+.descriptionTop {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.imgContainer {
+    width: 100%;
+    max-width: 200px;
+    max-height: 200px;
+    object-fit: cover;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    overflow: hidden;
+}
+
+.imgContainer img {
+    width: 150px;
+    height: 150px;
+}
+
+.imgThumbnail {
+    width: 300px;
+    height: 300px;
+}
+
+.imgStyle {
+
+}
+
+.descriptionBottom {
+    display: flex;
+    justify-content: space-between;
+    flex: 1;
+    gap: 20px;
+}
+
+.text {
+    width: 50%;
+    overflow-wrap: break-word;
+}
+
+.reviewList {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    gap: 20px;
+}
+
+.review {
+    display: flex;
+    flex-direction: column;
+}
