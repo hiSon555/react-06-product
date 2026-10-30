@@ -6,14 +6,31 @@
     max-width: 1000px;
     display: flex;
     flex-direction: column;
-    background-color: #f8f6f6;
+    background-color: #fff;
     border-radius: 10px;
+    gap: 30px
 }
 
 .backButton {
+    width: 150px;
+    padding: 10px;
     border-radius: 8px;
     border: none;
-    width: 150px
+    font-size: 0.9rem;
+    font-weight: 400;
+    background-color: #2563eb;
+    color: #fff;
+    text-align: center;
+    text-decoration: none;
+}
+
+.backButton:hover {
+    background-color: #464e67;
+    transform: translateY(-3px);
+}
+
+.backButton:active {
+    background-color: #1e40af;
 }
 
 
@@ -21,18 +38,19 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    font-size: 1.4rem;
 }
 
 .imgContainer {
     width: 100%;
-    max-width: 200px;
-    max-height: 200px;
+    max-width: 300px;
+    max-height: 300px;
     object-fit: cover;
     display: flex;
     align-items: center;
     justify-content: center;
-
     overflow: hidden;
+    background-color: #f8f9fb;
 }
 
 .imgContainer img {
@@ -54,6 +72,7 @@
     justify-content: space-between;
     flex: 1;
     gap: 20px;
+    background-color: #F1F5F9;
 }
 
 .text {
