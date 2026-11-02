@@ -30,7 +30,7 @@ function ProductDetail() {
 
     // 초기 렌더링에는 loading이 true이므로, 이 아래 if가 출력
     if (loading) {
-        return <div className={styles.loading}>Loading...</div>;
+        return <div className={styles.loading}>Loading....</div>;
     }
 
     // useEffect가 발동해서 fetch가 실행되는데
