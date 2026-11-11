@@ -1,24 +1,24 @@
 import { useEffect, useState } from "react";
 import styles from "./ProductList.module.css";
 import { Link } from "react-router";
+import type { ProductDetails, ProductLists } from "../types/Product.ts";
 
 function ProductList() {
-    // 사용자가 "/" 주소로 들어왔을 때 뜨는 컴포넌트 => 사용자가 목록을 보고 싶어하는 상황
-    // 목록을 띄워주기 위해 목록 데이터를 백엔드에게 요청
-    // 받아 와서 가공하고 state에 저장한 뒤
-    // 화면에 띄우면 끝
-    const [list, setList] = useState([]);
+    const [list, setList] = useState<ProductDetails[]>([]);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         fetch("https://dummyjson.com/products?limit=12")
-            .then(res => res.json()) // string -> 객체/배열 상태로 가공
-            .then(json => {
+            .then(res => res.json())
+            .then((json:ProductLists) => {
                 setList(json.products);
                 setLoading(false);
             })
-            .catch(err => {
-                console.log(err);
+            .catch((err:unknown) => {
+                if (err instanceof Error) {
+                    console.error(err.message);
+                } else {
+                console.log("알 수 없는 에러 : " + err); }
                 setLoading(false);
             });
     }, []);
@@ -26,11 +26,6 @@ function ProductList() {
     if (loading) {
         return <div className={styles.loading}>LOADING...</div>
     }
-
-    // loading은 끝났고(false),
-    // 백엔드에게 받아온 데이터가 정상적으로 list에 저장이 된 경우
-    // fetch 중간에 에러가 있어서 list에 저장이 안 된 경우
-
     if (list.length === 0) {
         return <div className={styles.loading}>상품을 찾을 수 없거나, 오류가 발생되었습니다.</div>;
     }
