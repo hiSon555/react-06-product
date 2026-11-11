@@ -1,7 +1,61 @@
 import { useEffect, useState } from "react";
-import styles from "./ProductList.module.css";
 import { Link } from "react-router";
 import type { ProductDetails, ProductLists } from "../types/Product.ts";
+import {Message} from "../style/CommonStyle.ts";
+import styled from "styled-components";
+
+const Container = styled.div`
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 32px 16px;
+`;
+
+const Title = styled.h1`
+    font-size: 28px;
+    margin-bottom: 24px;
+`;
+
+const ListWrap = styled.div`
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+`;
+
+const Card = styled(Link)`
+    border: 1px solid #e5e5e5;
+    border-radius: 12px;
+    overflow: hidden;
+    background: white;
+    text-decoration: none;
+    width: calc(25% - 15px);
+
+    &:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.12);
+    }
+`;
+
+const Thumbnail = styled.img`
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    background-color: #f3f3f3;
+`;
+
+const Info = styled.div`
+    padding: 12px 16px 16px;
+`;
+
+const Name = styled.h3`
+    font-size: 16px;
+    margin-bottom: 6px;
+`;
+
+const Price = styled.p`
+    font-weight: bold;
+    color: #2563eb;
+`;
 
 function ProductList() {
     const [list, setList] = useState<ProductDetails[]>([]);
@@ -24,27 +78,26 @@ function ProductList() {
     }, []);
 
     if (loading) {
-        return <div className={styles.loading}>LOADING...</div>
+        return <Message>LOADING...</Message>
     }
     if (list.length === 0) {
-        return <div className={styles.loading}>상품을 찾을 수 없거나, 오류가 발생되었습니다.</div>;
+        return <Message>상품을 찾을 수 없거나, 오류가 발생되었습니다.</Message>;
     }
 
-    return <div className={styles.container}>
-        <h1 className={styles.title}>상품 목록</h1>
-        <div className={styles.listWrap}>
+    return <Container>
+        <Title>상품 목록</Title>
+        <ListWrap>
             {list.map((item) => {
-                return <Link to={`/product/${item.id}`} key={item.id} className={styles.card}>
-                    <img src={item.thumbnail} alt={item.title} className={styles.thumbnail}/>
-                    <div className={styles.info
-                         }>
-                        <h3 className={styles.name}>{item.title}</h3>
-                        <p className={styles.price}>${item.price}</p>
-                    </div>
-                </Link>
+                return <Card to={`/product/${item.id}`} key={item.id}>
+                    <Thumbnail src={item.thumbnail} alt={item.title}/>
+                    <Info>
+                        <Name>{item.title}</Name>
+                        <Price>${item.price}</Price>
+                    </Info>
+                </Card>
             })}
-        </div>
-    </div>;
+        </ListWrap>
+    </Container>;
 }
 
 export default ProductList;
