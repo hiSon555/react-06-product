@@ -82,12 +82,20 @@ const Review = styled.div`
 `;
 
 function ProductDetail() {
-    const { id } = useParams();
+    const { id } = useParams(); // string | undefined
 
+    // 아직 값이 도착하지 않은 상태의 "초기값"을 배개변수로 제공해줘야 함
+    // Product 타입으로만 강제하면
+    // 값이 "있다" 로 밖에 표현을 할 수 없음
     const [detail, setDetail] = useState<ProductDetails | null>(null);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
+        // 지금 사용자가 /product/    만 일부러 치고 들어온 경우도 있는데
+        // 실행이 아니라 App - ProductDetail 이 관계까지 생각해서 쓰는 게 아니라
+        // ProductDetail만 보고 있는 것
+        if (!id) return;
+
         fetch(`https://dummyjson.com/products/${id}`)
             .then(res => res.json())
             .then((json: ProductDetails) => setDetail(json))
@@ -95,8 +103,9 @@ function ProductDetail() {
                 if (err instanceof Error) {
                     console.error(err.message);
                 } else {
-                    console.log("알 수 없는 에러 " + err); }
-                })
+                    console.log("알 수 없는 에러 " + err);
+                }
+            })
             .finally(() => setLoading(false));
     }, []);
 
@@ -110,9 +119,7 @@ function ProductDetail() {
 
     return (
         <Container>
-            <BackBtn to={"/"}>
-                &larr; 목록으로 돌아가기
-            </BackBtn>
+            <BackBtn to={"/"}>&larr; 목록으로 돌아가기</BackBtn>
             <DescriptionTop>
                 <ImgContainer>
                     <img src={detail.images[0]} alt={detail.title} />
